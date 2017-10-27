@@ -1,6 +1,9 @@
 .card {
+    background-color: #492e22; 
     background-image: url("../img/card-upside-down.svg");
     background-position:center, center;
-    background-size: 80%; 
+    background-size: 90%; 
     background-repeat: no-repeat;
+    border: 5px solid #ae8741;
+    height: 100%;
 }

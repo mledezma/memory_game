@@ -1,0 +1,24 @@
+footer {
+    background-color: #c3a273;
+    box-sizing: border-box;
+    padding: 10px 0;
+    position: sticky;
+    bottom: 0;
+    width: 100vw;
+
+    p {
+        color: #7b171a;
+        font-size: 9px;
+        text-align: center;
+
+        @media screen and (min-width: 550px) {
+            font-size: 12px;     
+        }
+
+        @media screen and (min-width: 1400px) {  
+            font-size: 14px;    
+        }
+
+        @include stroke(1, #ae8741);        
+    }
+}

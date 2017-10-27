@@ -1,0 +1,11 @@
+body {
+    box-sizing: border-box;
+    font-family: 'Futura', sans-serif;
+    margin: 0;
+    padding: 0;
+
+    @media screen and (min-width:1000px) {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}

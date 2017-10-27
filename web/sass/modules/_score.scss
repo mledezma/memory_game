@@ -1,0 +1,32 @@
+.score {
+    padding: 12px 0;
+    text-align: right;
+
+    @media screen and (min-width: 1400px) {      
+        padding: 15px 0; 
+    }
+
+    @media screen and (min-width: 1520px) {    
+        padding: 15px 10px 15px 0;  
+    }
+
+    p {
+        color: #7b171a;
+        font-size: 9px;
+        margin: 0 0 10px;
+
+        @media screen and (min-width: 550px) {
+            font-size: 12px;     
+        }
+
+        @media screen and (min-width: 1400px) {  
+            font-size: 14px;    
+        }
+
+        @include stroke(1, #ae8741);        
+    }
+
+    p:last-child {
+        margin-bottom: 0; 
+    }
+}
