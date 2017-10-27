@@ -1,0 +1,17 @@
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    max-width: 100%;
+    width: 1280px;
+}
+
+.flex-item {
+    background-color: #000000;
+    border: 1px solid #337575;
+    flex-shrink: 0;
+    flex-wrap: wrap;    
+    height: 300px;
+    margin: 20px 15px 0 0;
+    width: 30%;
+}
