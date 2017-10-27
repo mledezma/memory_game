@@ -2,6 +2,7 @@
     display: flex;
     flex-flow: row wrap;
     margin: 2% auto;
+    perspective: 500;
     width: 1600px;
 
     @media screen and (min-width:550px) {
@@ -31,7 +32,14 @@
     flex-wrap: wrap;    
     height: 50vw;
     margin: 10px 5px;
+    transform-style: preserve-3d;
+    transition: all 1.0s linear;
     width: 8.5%;
+
+    &:hover {
+        transform: rotateY(180deg);
+    }
+
 
     @media screen and (min-width:550px) {
         width: 12%;

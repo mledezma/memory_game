@@ -21,6 +21,7 @@ body {
   display: flex;
   flex-flow: row wrap;
   margin: 2% auto;
+  perspective: 500;
   width: 1600px; }
   @media screen and (min-width: 550px) {
     .flex-container {
@@ -44,7 +45,11 @@ body {
   flex-wrap: wrap;
   height: 50vw;
   margin: 10px 5px;
+  transform-style: preserve-3d;
+  transition: all 1.0s linear;
   width: 8.5%; }
+  .flex-item:hover {
+    transform: rotateY(180deg); }
   @media screen and (min-width: 550px) {
     .flex-item {
       width: 12%; } }
@@ -68,7 +73,8 @@ header {
   padding: 0px 10px;
   position: sticky;
   top: 0;
-  width: 100vw; }
+  width: 100vw;
+  z-index: 2; }
 
 footer {
   background-color: #c3a273;
@@ -76,7 +82,8 @@ footer {
   padding: 10px 0;
   position: sticky;
   bottom: 0;
-  width: 100vw; }
+  width: 100vw;
+  z-index: 2; }
   footer p {
     color: #7b171a;
     font-size: 9px;
@@ -90,6 +97,7 @@ footer {
         font-size: 14px; } }
 
 .card {
+  backface-visibility: hidden;
   background-color: #492e22;
   background-image: url("../img/card-upside-down.svg");
   background-position: center, center;
@@ -97,6 +105,16 @@ footer {
   background-repeat: no-repeat;
   border: 5px solid #ae8741;
   height: 100%; }
+
+.back {
+  backface-visibility: hidden;
+  background-color: #492e22;
+  border: 5px solid #ae8741;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transform: rotateX(180deg);
+  width: 100%; }
 
 .btn-reset {
   padding-top: 5px; }
