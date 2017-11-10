@@ -1,4 +1,9 @@
 .card {
+    transform-style: preserve-3d;
+    transition: all 1.0s linear;
+}
+
+.front {
     backface-visibility: hidden;
     background-color: #492e22; 
     background-image: url("../img/card-upside-down.svg");

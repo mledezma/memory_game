@@ -32,14 +32,7 @@
     flex-wrap: wrap;    
     height: 50vw;
     margin: 10px 5px;
-    transform-style: preserve-3d;
-    transition: all 1.0s linear;
     width: 8.5%;
-
-    &:hover {
-        transform: rotateY(180deg);
-    }
-
 
     @media screen and (min-width:550px) {
         width: 12%;
