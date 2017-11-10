@@ -35,7 +35,8 @@ gulp.task('watch', ['sass'], function () {
   gulp.watch('app/sass/**/*.scss', ['sass', browserSync.reload]);
   gulp.watch('app/js/**/*.js', ['js', browserSync.reload]);
   gulp.watch('./**/*.html').on('change', browserSync.reload);
-  gulp.watch('app/img/**/*.+(png|jpg|jpeg|gif|svg)', ['images', browserSync.reload])
+  gulp.watch('app/img/**/*.+(png|jpg|jpeg|gif|svg)', ['images', browserSync.reload]);
+  gulp.watch('app/*.html', ['html', browserSync.reload]);
 });
 
 gulp.task('js', function () {
@@ -55,7 +56,12 @@ gulp.task('images', function () {
     })
 });
 
+gulp.task('html', function () {
+  return gulp.src('app/*.html')
+    .pipe(gulp.dest('./'))
+});
+
 gulp.task('build', function () {
-  runSequence('clean:img', ['sass', 'images', 'js', 'watch'])
+  runSequence('clean:img', ['html', 'sass', 'images', 'js', 'watch'])
 
 });

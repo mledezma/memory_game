@@ -5,11 +5,8 @@
 
 .front {
     backface-visibility: hidden;
-    background-color: #492e22; 
-    background-image: url("../img/card-upside-down.svg");
-    background-position:center, center;
-    background-size: 90%; 
-    background-repeat: no-repeat;
+    background: url("../img/card-upside-down.svg") center
+    center / 90% no-repeat #492e22;
     border: 5px solid #ae8741;
     height: 100%;
 }
@@ -21,6 +18,6 @@
     height: 100%;
     position: absolute;
     top: 0;
-    transform: rotateX(180deg);
+    transform: rotateX(180deg) rotateZ(180deg);
     width: 100%;
 }
