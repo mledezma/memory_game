@@ -1,7 +1,7 @@
-//ToDo: Por cada carta que ya haya visto y no empareje perder 50 puntos
 //ToDo: Mejorar el volteo de la carta y la manera en que resetea el index de la carta en la que me encuentro
+//ToDo: Que reste 50
 var game = (function () {
-  var frontCards = ['img/cards/1.jpg', 'img/cards/2.jpg', 'img/cards/3.jpg', 'img/cards/4.jpg', 'img/cards/5.jpg', 'img/cards/6.jpg', 'img/cards/7.jpg',  'img/cards/8.jpg', 'img/cards/9.jpg', 'img/cards/10.jpg'];  
+  var frontCards = ['img/cards/1.jpg', 'img/cards/2.jpg', 'img/cards/3.jpg', 'img/cards/4.jpg', 'img/cards/5.jpg', 'img/cards/6.jpg', 'img/cards/7.jpg', 'img/cards/8.jpg', 'img/cards/9.jpg', 'img/cards/10.jpg'];  
   var currentCardId = 0;
   var previousCardId = -1;
   var currentCard;
@@ -11,7 +11,7 @@ var game = (function () {
   var cardsFlipped = 0;
   var matchedCards = 0;
 
-  function _deleteCard(card) {
+  function _deleteCard() {
     var cards = [previousCard, currentCard];
     cards.forEach(function (card) {
       card.removeEventListener('click', _displayCard);
@@ -27,10 +27,10 @@ var game = (function () {
 
   function _updateScore() {
     document.getElementById('currentScore').innerText = currentScore;
-    _displayWinMsg()
+    _displayWinMsg();
   }
 
-  function _matchCard(cardId) {
+  function _matchCard() {
     if (previousCardId === currentCardId) {
       isMatching = true;
       currentScore += 100;
@@ -38,7 +38,6 @@ var game = (function () {
       _updateScore();
     } else {
       isMatching = false;      
-      console.log('It didnt');
     }
   }
 
@@ -48,7 +47,7 @@ var game = (function () {
   }
 
   function _randomCards(cards) {
-    var randomCards = cards.sort(function() { return 0.5 - Math.random() });
+    var randomCards = cards.sort(function() { return 0.5 - Math.random(); });
     return randomCards;
   }
 
@@ -64,7 +63,7 @@ var game = (function () {
     }, 2000);    
   }
 
-  function _displayCard(card, index) {
+  function _displayCard() {
     if (cardsFlipped >= 2) {
       return;
     }
@@ -79,16 +78,13 @@ var game = (function () {
       _matchCard(cardId);
 
       if (isMatching) {
-        _deleteCard(this);
-        console.log('delete this cards');
+        _deleteCard();
       }
 
       cardImg.src = frontCards[this.index];
       this.classList.add('is-horizontal-rotated');
       _initialPosition(this);
       this.isClicked = true;
-    } else {
-      console.log('Clikea otra carta');
     }
   }
 
@@ -104,12 +100,12 @@ var game = (function () {
     var cards = document.querySelectorAll('.card');
     frontCards = _duplicateCards(frontCards);
     frontCards = _randomCards(frontCards);
-    _flipCard(cards);    
+    _flipCard(cards);   
   }
 
   return {
     init: init
-  }
+  };
 })();
 
 game.init();
