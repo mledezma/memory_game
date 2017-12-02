@@ -1,19 +1,21 @@
-//ToDo: Mejorar el volteo de la carta y la manera en que resetea el index de la carta en la que me encuentro
-//ToDo: Que reste 50
-var game = (function () {
-  var frontCards = ['img/cards/1.jpg', 'img/cards/2.jpg', 'img/cards/3.jpg', 'img/cards/4.jpg', 'img/cards/5.jpg', 'img/cards/6.jpg', 'img/cards/7.jpg', 'img/cards/8.jpg', 'img/cards/9.jpg', 'img/cards/10.jpg'];  
-  var currentCardId = 0;
-  var previousCardId = -1;
-  var currentCard;
-  var previousCard;
-  var currentScore = 0;
-  var isMatching = false;
-  var cardsFlipped = 0;
-  var matchedCards = 0;
+// ToDo: Mejorar el volteo de la carta y la manera en que resetea
+// el index de la carta en la que me encuentro
+// ToDo: Que reste 50
+// ToDo: Cambiar el metodo de match
+const game = (function () {
+  let frontCards = ['img/cards/1.jpg', 'img/cards/2.jpg', 'img/cards/3.jpg', 'img/cards/4.jpg', 'img/cards/5.jpg', 'img/cards/6.jpg', 'img/cards/7.jpg', 'img/cards/8.jpg', 'img/cards/9.jpg', 'img/cards/10.jpg'];  
+  let currentCardId = 0;
+  let previousCardId = -1;
+  let currentCard;
+  let previousCard;
+  let currentScore = 0;
+  let isMatching = false;
+  let cardsFlipped = 0;
+  let matchedCards = 0;
 
   function _deleteCard() {
-    var cards = [previousCard, currentCard];
-    cards.forEach(function (card) {
+    let cards = [previousCard, currentCard];
+    cards.forEach((card) => {
       card.removeEventListener('click', _displayCard);
       card.classList.add('is-deleted');
     });
@@ -42,22 +44,22 @@ var game = (function () {
   }
 
   function _duplicateCards(front) {
-    var cards = front.concat(front);
+    let cards = front.concat(front);
     return cards;
   }
 
   function _randomCards(cards) {
-    var randomCards = cards.sort(function() { return 0.5 - Math.random(); });
+    let randomCards = cards.sort(() => { return 0.5 - Math.random(); });
     return randomCards;
   }
 
   function _initialPosition(card) {
-    setTimeout(function() {
+    setTimeout(() => {
       currentCardId = 0;   
       card.classList.remove('is-horizontal-rotated');
       card.isClicked = false;
       cardsFlipped--;
-      setTimeout(function() {
+      setTimeout(() => {
         card.querySelector('img').src = 'img/card-sample.jpg';
       }, 500);
     }, 2000);    
@@ -69,8 +71,8 @@ var game = (function () {
     }
     cardsFlipped++;      
     if (!this.isClicked) {
-      var cardId = frontCards[this.index].replace('img/cards/', '').replace('.jpg', '');
-      var cardImg = this.querySelector('img');
+      let cardId = frontCards[this.index].replace('img/cards/', '').replace('.jpg', '');
+      let cardImg = this.querySelector('img');
       previousCardId = currentCardId;
       currentCardId = cardId;
       previousCard = currentCard;
@@ -89,7 +91,7 @@ var game = (function () {
   }
 
   function _flipCard(cards) {
-    cards.forEach(function(card, index) {
+    cards.forEach((card, index) => {
       card.isClicked = false;
       card.index = index;
       card.addEventListener('click', _displayCard);
@@ -97,10 +99,10 @@ var game = (function () {
   }
 
   function init() {
-    var cards = document.querySelectorAll('.card');
+    let cards = document.querySelectorAll('.card');
     frontCards = _duplicateCards(frontCards);
     frontCards = _randomCards(frontCards);
-    _flipCard(cards);   
+    _flipCard(cards);
   }
 
   return {

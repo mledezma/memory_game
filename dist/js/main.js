@@ -1,1 +1,116 @@
-"use strict";var game=function(){function i(){document.getElementById("currentScore").innerText=a,g===r.length/2&&alert("You won")}function t(){if(!(d>=2||(d++,this.isClicked))){var m=r[this.index].replace("img/cards/","").replace(".jpg",""),u=this.querySelector("img");c=e,e=this,(s=n)===(n=m)?(o=!0,a+=100,g+=2,i()):o=!1,o&&[c,e].forEach(function(i){i.removeEventListener("click",t),i.classList.add("is-deleted")}),u.src=r[this.index],this.classList.add("is-horizontal-rotated"),function(i){setTimeout(function(){n=0,i.classList.remove("is-horizontal-rotated"),i.isClicked=!1,d--,setTimeout(function(){i.querySelector("img").src="img/card-sample.jpg"},500)},2e3)}(this),this.isClicked=!0}}var e,c,r=["img/cards/1.jpg","img/cards/2.jpg","img/cards/3.jpg","img/cards/4.jpg","img/cards/5.jpg","img/cards/6.jpg","img/cards/7.jpg","img/cards/8.jpg","img/cards/9.jpg","img/cards/10.jpg"],n=0,s=-1,a=0,o=!1,d=0,g=0;return{init:function(){var i=document.querySelectorAll(".card");r=(r=function(i){return i.concat(i)}(r)).sort(function(){return.5-Math.random()}),function(i){i.forEach(function(i,e){i.isClicked=!1,i.index=e,i.addEventListener("click",t)})}(i)}}}();game.init();
+'use strict';
+
+// ToDo: Mejorar el volteo de la carta y la manera en que resetea
+// el index de la carta en la que me encuentro
+// ToDo: Que reste 50
+var game = function () {
+  var frontCards = ['img/cards/1.jpg', 'img/cards/2.jpg', 'img/cards/3.jpg', 'img/cards/4.jpg', 'img/cards/5.jpg', 'img/cards/6.jpg', 'img/cards/7.jpg', 'img/cards/8.jpg', 'img/cards/9.jpg', 'img/cards/10.jpg'];
+  var currentCardId = 0;
+  var previousCardId = -1;
+  var currentCard = void 0;
+  var previousCard = void 0;
+  var currentScore = 0;
+  var isMatching = false;
+  var cardsFlipped = 0;
+  var matchedCards = 0;
+
+  function _deleteCard() {
+    var cards = [previousCard, currentCard];
+    cards.forEach(function (card) {
+      card.removeEventListener('click', _displayCard);
+      card.classList.add('is-deleted');
+    });
+  }
+
+  function _displayWinMsg() {
+    if (matchedCards === frontCards.length / 2) {
+      alert('You won');
+    }
+  }
+
+  function _updateScore() {
+    document.getElementById('currentScore').innerText = currentScore;
+    _displayWinMsg();
+  }
+
+  function _matchCard() {
+    if (previousCardId === currentCardId) {
+      isMatching = true;
+      currentScore += 100;
+      matchedCards += 2;
+      _updateScore();
+    } else {
+      isMatching = false;
+    }
+  }
+
+  function _duplicateCards(front) {
+    var cards = front.concat(front);
+    return cards;
+  }
+
+  function _randomCards(cards) {
+    var randomCards = cards.sort(function () {
+      return 0.5 - Math.random();
+    });
+    return randomCards;
+  }
+
+  function _initialPosition(card) {
+    setTimeout(function () {
+      currentCardId = 0;
+      card.classList.remove('is-horizontal-rotated');
+      card.isClicked = false;
+      cardsFlipped--;
+      setTimeout(function () {
+        card.querySelector('img').src = 'img/card-sample.jpg';
+      }, 500);
+    }, 2000);
+  }
+
+  function _displayCard() {
+    if (cardsFlipped >= 2) {
+      return;
+    }
+    cardsFlipped++;
+    if (!this.isClicked) {
+      var cardId = frontCards[this.index].replace('img/cards/', '').replace('.jpg', '');
+      var cardImg = this.querySelector('img');
+      previousCardId = currentCardId;
+      currentCardId = cardId;
+      previousCard = currentCard;
+      currentCard = this;
+      _matchCard(cardId);
+
+      if (isMatching) {
+        _deleteCard();
+      }
+
+      cardImg.src = frontCards[this.index];
+      this.classList.add('is-horizontal-rotated');
+      _initialPosition(this);
+      this.isClicked = true;
+    }
+  }
+
+  function _flipCard(cards) {
+    cards.forEach(function (card, index) {
+      card.isClicked = false;
+      card.index = index;
+      card.addEventListener('click', _displayCard);
+    });
+  }
+
+  function init() {
+    var cards = document.querySelectorAll('.card');
+    frontCards = _duplicateCards(frontCards);
+    frontCards = _randomCards(frontCards);
+    _flipCard(cards);
+  }
+
+  return {
+    init: init
+  };
+}();
+
+game.init();
