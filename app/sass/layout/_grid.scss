@@ -3,24 +3,6 @@
     flex-flow: row wrap;
     margin: 2% auto;
     perspective: 2500;
-    width: 1600px;
-
-    @media screen and (min-width:550px) {
-        width: 1500px;
-    }
-
-    @media screen and (min-width:700px) {
-        width: 1170px;
-    }
-
-    @media screen and (min-width:1000px) {
-        justify-content: center;
-        width: 100%;
-    }
-
-    @media screen and (min-width:1200px) {
-        width: 80%;
-    }
 }
 
 .flex-item {
@@ -47,4 +29,11 @@
     @media screen and (min-width:1200px) {  
         height: 15vw;
     }
+}
+
+.container {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 1500px;
+    width: 100%;
 }
