@@ -1,4 +1,12 @@
 .logo {
     flex: 0 0 auto;
-    width: 150px;
+    width: 140px;
+
+    @media screen and (min-width:768px) {
+        left: 50%;
+        position: absolute;
+        top: 65%;
+        transform: translate(-50%,-50%);
+        width: 200px;        
+    }
 }

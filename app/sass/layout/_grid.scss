@@ -1,33 +1,27 @@
 .flex-container {
     display: flex;
     flex-flow: row wrap;
-    margin: 2% auto;
-    perspective: 2500;
+    justify-content: space-around;
+    padding-top: 2%;
 }
 
 .flex-item {
-    flex-shrink: 0;
-    flex-wrap: wrap;    
-    height: 50vw;
-    margin: 10px 5px;
-    width: 8.5%;
-
-    @media screen and (min-width:550px) {
-        width: 12%;
+    flex: 0 1 20%;  
+    height: 100px;
+    margin-bottom: 20px; 
+    
+    @media screen and (min-width:420px) {
+        height: 150px;
     }
 
-    @media screen and (min-width:700px) {  
-        height: 35vw;
-        width: 18%;
+    @media screen and (min-width:768px) {  
+        flex-basis: 20%;
+        height: 220px;
     }
 
-    @media screen and (min-width:1000px) {
-        margin: 15px;  
-        height: 25vw;
-    }
-
-    @media screen and (min-width:1200px) {  
-        height: 15vw;
+    @media screen and (min-width:1024px) {
+        flex-basis: 17%;
+        height: 250px;        
     }
 }
 
