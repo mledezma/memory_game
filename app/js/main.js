@@ -1,29 +1,28 @@
 // ToDo: Mejorar el volteo de la carta y la manera en que resetea
 // el index de la carta en la que me encuentro
 // ToDo: Que reste 50
-// ToDo: Cambiar el metodo de match
 const game = (function () {
-  let frontCards = ['img/cards/1.jpg', 'img/cards/2.jpg', 'img/cards/3.jpg', 'img/cards/4.jpg', 'img/cards/5.jpg', 'img/cards/6.jpg', 'img/cards/7.jpg', 'img/cards/8.jpg', 'img/cards/9.jpg', 'img/cards/10.jpg'];  
-  let currentCardId = 0;
-  let previousCardId = -1;
-  let currentCard;
-  let previousCard;
+  let frontCards = [{src:'1.jpg', id:1},{src:'2.jpg', id:2},{src:'3.jpg', id:3},{src:'4.jpg', id:4},{src:'5.jpg', id:5},{src:'6.jpg', id:6},{src:'7.jpg', id:7},{src:'8.jpg', id:8},{src:'9.jpg', id:9},{src:'10.jpg', id:10}];  
+  let imagePath = '/../img/cards/';
   let currentScore = 0;
   let isMatching = false;
-  let cardsFlipped = 0;
   let matchedCards = 0;
-
+  let clickedCards = [];
+  
   function _deleteCard() {
-    let cards = [previousCard, currentCard];
-    cards.forEach((card) => {
+    clickedCards.forEach((card) => {
       card.removeEventListener('click', _displayCard);
       card.classList.add('is-deleted');
     });
+    clickedCards = [];
+    isMatching = false;
   }
 
   function _displayWinMsg() {
-    if (matchedCards === frontCards.length/2) {
-      alert('You won');
+    if (matchedCards === frontCards.length) {
+      setTimeout(() => {
+        alert('You won');
+      }, 1000);
     }
   }
 
@@ -33,10 +32,13 @@ const game = (function () {
   }
 
   function _matchCard() {
-    if (previousCardId === currentCardId) {
+    let card1 = frontCards[clickedCards[0].index];
+    let card2 = frontCards[clickedCards[1].index];
+    if (card1.id === card2.id) {
       isMatching = true;
       currentScore += 100;
       matchedCards += 2;
+      _deleteCard();
       _updateScore();
     } else {
       isMatching = false;      
@@ -53,40 +55,38 @@ const game = (function () {
     return randomCards;
   }
 
-  function _initialPosition(card) {
-    setTimeout(() => {
-      currentCardId = 0;   
+  function _turnCards() {
+    clickedCards.forEach(card => {
+      let back = card.querySelector('.back');
       card.classList.remove('is-horizontal-rotated');
       card.isClicked = false;
-      cardsFlipped--;
+      clickedCards = [];
       setTimeout(() => {
-        card.querySelector('img').src = 'img/card-sample.jpg';
-      }, 500);
-    }, 2000);    
+        back.style.backgroundImage = '';
+      }, 1000);
+    });
   }
-
+  
   function _displayCard() {
-    if (cardsFlipped >= 2) {
+    if (clickedCards.length >= 2) {
       return;
     }
-    cardsFlipped++;      
+    
     if (!this.isClicked) {
-      let cardId = frontCards[this.index].replace('img/cards/', '').replace('.jpg', '');
-      let cardImg = this.querySelector('img');
-      previousCardId = currentCardId;
-      currentCardId = cardId;
-      previousCard = currentCard;
-      currentCard = this;
-      _matchCard(cardId);
+      let cardImg = this.querySelector('.back');
+      clickedCards.push(this);
+      cardImg.style.backgroundImage = 'url(' + imagePath + frontCards[this.index].src + ')';
+      this.classList.add('is-horizontal-rotated');
+      this.isClicked = true;
 
       if (isMatching) {
         _deleteCard();
+      } else if (clickedCards.length === 2) {
+        _matchCard();
+        setTimeout(() => {
+          _turnCards();
+        }, 1000);
       }
-
-      cardImg.src = frontCards[this.index];
-      this.classList.add('is-horizontal-rotated');
-      _initialPosition(this);
-      this.isClicked = true;
     }
   }
 
