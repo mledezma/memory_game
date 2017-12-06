@@ -1,0 +1,18 @@
+{
+  "name": "Steampunk Memory",
+  "short_name": "Memory",
+  "theme_color": "#2d7fc1",
+  "background_color": "#2d6490",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [{
+    "src": "img/cards/1.jpg",
+    "sizes": "64x64",
+    "type": "image/jpeg"
+  }],
+  "serviceworker": {
+    "src": "js/sw.js",
+    "use_cache": false
+  }
+}
