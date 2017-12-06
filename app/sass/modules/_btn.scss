@@ -1,11 +1,13 @@
 .btn-reset {
-    padding-top: 5px;
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 50px;
 
-    @media screen and (min-width: 1400px) {      
-        padding-top: 12px;   
+    @media screen and (min-width:768px) {
+        flex: 0 0 auto;
     }
 
     img {
-        width: 65%;;
+        width: 100%;
     }
 }

@@ -1,18 +1,19 @@
 .score {
-    padding: 12px 0;
+    display: flex;
+    flex: 0 0 100%;
+    justify-content: center;
+    margin-top: 2%;
     text-align: right;
+    width: 100%;
 
-    @media screen and (min-width: 1400px) {      
-        padding: 15px 0; 
-    }
-
-    @media screen and (min-width: 1520px) {    
-        padding: 15px 25px 15px 0;  
+    @media screen and (min-width:768px) {
+        flex: 0 0 20%;
+        width: auto;
     }
 
     p {
         color: #7b171a;
-        font-size: 9px;
+        font-size: 12px;
         margin: 0 0 10px;
 
         @media screen and (min-width: 550px) {
@@ -27,6 +28,7 @@
     }
 
     p:last-child {
-        margin-bottom: 0; 
+        margin-bottom: 0;
+        margin-left: 15%;
     }
 }
