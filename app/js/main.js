@@ -1,7 +1,7 @@
 // ToDo: Que reste 50
 // ToDo: new Image con source
 const game = (function () {
-  let frontCards = [{src:'1.jpg', id:1},{src:'2.jpg', id:2},{src:'3.jpg', id:3},{src:'4.jpg', id:4},{src:'5.jpg', id:5},{src:'6.jpg', id:6},{src:'7.jpg', id:7},{src:'8.jpg', id:8},{src:'9.jpg', id:9},{src:'10.jpg', id:10}];  
+  let frontCards = [{src:'1.jpg', id:1, logged: false},{src:'2.jpg', id:2, logged: false},{src:'3.jpg', id:3, logged: false},{src:'4.jpg', id:4, logged: false},{src:'5.jpg', id:5, logged: false},{src:'6.jpg', id:6, logged: false},{src:'7.jpg', id:7, logged: false},{src:'8.jpg', id:8, logged: false},{src:'9.jpg', id:9, logged: false},{src:'10.jpg', id:10, logged: false}];  
   let imagePath = 'img/cards/';
   let currentScore = 0;
   let isMatching = false;
@@ -48,7 +48,21 @@ const game = (function () {
       _updateScore();
     } else {
       isMatching = false;
-    }
+      let card1 = frontCards[clickedCards[0].index];
+      let card2 = frontCards[clickedCards[1].index];
+      console.log(frontCards);
+      console.log('clicked1', clickedCards[0].index);
+      console.log('clicked1', clickedCards[1].index);
+      console.log(card1.logged);
+      console.log(card2.logged);
+      if (card1.logged || card2.logged) {
+        currentScore -= 50;
+        _updateScore();
+      } else {
+        card1.logged = true;
+        card2.logged = true;
+      }
+    } 
   }
 
   function _duplicateCards(front) {
