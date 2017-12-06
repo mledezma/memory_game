@@ -100,7 +100,7 @@ const fileManifest = [
   },
   {
     "url": "js/main.js",
-    "revision": "b066d136efc46cbbc21b06a4c95ab867"
+    "revision": "cfab5a91b9a9f2039bdd61ea476b9b2c"
   },
   {
     "url": "manifest.json",
