@@ -15,7 +15,7 @@ const babel = require('gulp-babel');
 const workbox = require('workbox-build');
 const dist = './dist';
 
-gulp.task('sass:prod', function() {
+gulp.task('sass:prod', () => {
   var plugins = [
     autoprefixer({
       browsers: ['last 2 version']
@@ -29,7 +29,7 @@ gulp.task('sass:prod', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('sass:dev', function () {
+gulp.task('sass:dev', () => {
   var plugins = [
     autoprefixer({
       browsers: ['last 2 version']
@@ -44,7 +44,7 @@ gulp.task('sass:dev', function () {
     .pipe(browserSync.stream());
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
   browserSync.init({
     server: {
       baseDir: './.tmp'
@@ -61,7 +61,7 @@ gulp.task('watch', function () {
   gulp.watch('app/*.html', ['html:dev', browserSync.reload]);
 });
 
-gulp.task('js:dev', function () {
+gulp.task('js:dev', () => {
   return gulp.src('app/js/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(eslint())
@@ -70,7 +70,7 @@ gulp.task('js:dev', function () {
     .pipe(gulp.dest('./.tmp/js'));
 });
 
-gulp.task('js:prod', function () {
+gulp.task('js:prod', () => {
   return gulp.src('app/js/**/*.js')
     .pipe(eslint())
     .pipe(babel({
@@ -82,27 +82,27 @@ gulp.task('js:prod', function () {
     .pipe(gulp.dest('./dist/js'));
 });
 
-gulp.task('clean:img', function () {
+gulp.task('clean:img', () => {
   return del.sync('.tmp/img');
 });
 
-gulp.task('img:prod', function () {
+gulp.task('img:prod', () => {
   return gulp.src('app/img/**/*.+(png|jpg|jpeg|gif|svg|ico)')
     .pipe(imagemin())
     .pipe(gulp.dest('./dist/img'));
 });
 
-gulp.task('img:dev', function () {
+gulp.task('img:dev', () => {
   return gulp.src('app/img/**/*.+(png|jpg|jpeg|gif|svg|ico)')
     .pipe(gulp.dest('./.tmp/img'));
 });
 
-gulp.task('html:dev', function () {
+gulp.task('html:dev', () => {
   return gulp.src('app/*.html')
     .pipe(gulp.dest('./.tmp/'));
 });
 
-gulp.task('html:prod', function () {
+gulp.task('html:prod', () => {
   return gulp.src('app/*.html')
     .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(gulp.dest('./dist'));
@@ -122,14 +122,32 @@ gulp.task('generate-service-worker', () => {
   });
 });
 
-gulp.task('prod', function () {
-  runSequence('clean:img', ['html:prod', 'sass:prod', 'img:prod', 'js:prod'], 'generate-service-worker');
+gulp.task('favicon', () => {
+  return gulp.src('app/favicon.ico')
+    .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('dev', function () {
-  runSequence('clean:img', ['html:dev', 'sass:dev', 'img:dev', 'js:dev', 'watch']), 'generate-service-worker';
+gulp.task('manifest', () => {
+  return gulp.src('app/manifest.json')
+    .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('clean:tmp', function () {
+gulp.task('prod', () => {
+  runSequence('clean:img', ['html:prod', 'sass:prod', 'img:prod', 'js:prod', 'favicon', 'manifest'], 'generate-service-worker');
+});
+
+gulp.task('dev', () => {
+  runSequence('clean:img', ['html:dev', 'sass:dev', 'img:dev', 'js:dev',, 'watch']);
+});
+
+gulp.task('clean:tmp', () => {
   del.sync('.tmp');
+});
+
+gulp.task('server', () => {
+  browserSync.init({
+    server: {
+      baseDir: './dist'
+    },
+  });
 });
