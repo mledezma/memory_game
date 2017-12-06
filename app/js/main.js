@@ -1,4 +1,5 @@
 // ToDo: Que reste 50
+// ToDo: new Image con source
 const game = (function () {
   let frontCards = [{src:'1.jpg', id:1},{src:'2.jpg', id:2},{src:'3.jpg', id:3},{src:'4.jpg', id:4},{src:'5.jpg', id:5},{src:'6.jpg', id:6},{src:'7.jpg', id:7},{src:'8.jpg', id:8},{src:'9.jpg', id:9},{src:'10.jpg', id:10}];  
   let imagePath = 'img/cards/';
@@ -27,14 +28,12 @@ const game = (function () {
 
   function _updateScore() {
     document.getElementById('currentScore').innerText = currentScore;
-    console.log('currentScore', currentScore);
-    console.log('maxScore', maxScore);
-    console.log('maxScoreLocal', getMaxScore());
     
     if (currentScore > maxScore) {
       maxScore = currentScore;
       setMaxScore();
     }
+
     _displayWinMsg();
   }
 
@@ -48,7 +47,7 @@ const game = (function () {
       _deleteCard();
       _updateScore();
     } else {
-      isMatching = false;      
+      isMatching = false;
     }
   }
 
@@ -82,13 +81,13 @@ const game = (function () {
     if (!this.isClicked) {
       let cardImg = this.querySelector('.back');
       clickedCards.push(this);
-      cardImg.style.backgroundImage = 'url(' + imagePath + frontCards[this.index].src + ')';
+      cardImg.style.backgroundImage = `url(${imagePath + frontCards[this.index].src})`;
       this.classList.add('is-horizontal-rotated');
       this.isClicked = true;
-
+      
       if (isMatching) {
         _deleteCard();
-      } else if (clickedCards.length === 2) {
+      } else if (clickedCards.length === 2) {    
         _matchCard();
         setTimeout(() => {
           _turnCards();
@@ -117,7 +116,7 @@ const game = (function () {
   function loadServiceWorker() {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then(registration => {
+        navigator.serviceWorker.register('../sw.js').then(registration => {
           console.log('SW registered: ', registration);
         }).catch(registrationError => {
           console.log('SW registration failed: ', registrationError);

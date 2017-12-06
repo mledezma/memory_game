@@ -23,7 +23,7 @@
       "sizes": "192x192"
     }],
   "serviceworker": {
-    "src": "js/sw.js",
+    "src": "sw.js",
     "use_cache": true
   }
 }

@@ -111,8 +111,8 @@ gulp.task('html:prod', () => {
 gulp.task('generate-service-worker', () => {
   return workbox.generateSW({
     globDirectory: dist,
-    globPatterns: ['**\/*.{html,js,css,svg,jpg}'],
-    swDest: `${dist}/js/sw.js`,
+    globPatterns: ['**\/*.{html,js,css,svg,jpg}', 'manifest.json'],
+    swDest: `${dist}/sw.js`,
     clientsClaim: true,
     skipWaiting: true
   }).then(() => {
