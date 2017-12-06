@@ -120,6 +120,7 @@ const game = (function () {
     serviceWorker: loadServiceWorker
   };
 })();
-
-game.serviceWorker();
+window.addEventListener('load', function () {
+  game.serviceWorker();
+});
 game.init();

@@ -87,13 +87,13 @@ gulp.task('clean:img', function () {
 });
 
 gulp.task('img:prod', function () {
-  return gulp.src('app/img/**/*.+(png|jpg|jpeg|gif|svg)')
+  return gulp.src('app/img/**/*.+(png|jpg|jpeg|gif|svg|ico)')
     .pipe(imagemin())
     .pipe(gulp.dest('./dist/img'));
 });
 
 gulp.task('img:dev', function () {
-  return gulp.src('app/img/**/*.+(png|jpg|jpeg|gif|svg)')
+  return gulp.src('app/img/**/*.+(png|jpg|jpeg|gif|svg|ico)')
     .pipe(gulp.dest('./.tmp/img'));
 });
 
