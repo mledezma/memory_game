@@ -1,0 +1,13 @@
+.btn-reset {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 50px;
+
+    @media screen and (min-width:768px) {
+        flex: 0 0 auto;
+    }
+
+    img {
+        width: 100%;
+    }
+}
