@@ -39,6 +39,7 @@
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0",
     "jshint": "^2.9.5",
-    "run-sequence": "^2.2.0"
+    "run-sequence": "^2.2.0",
+    "workbox-build": "^2.1.2"
   }
 }

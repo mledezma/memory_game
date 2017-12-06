@@ -12,6 +12,8 @@ const uglify = require('gulp-uglify');
 const eslint = require('gulp-eslint');
 const htmlmin = require('gulp-htmlmin');
 const babel = require('gulp-babel');
+const workbox = require('workbox-build');
+const dist = './dist';
 
 gulp.task('sass:prod', function() {
   var plugins = [
@@ -106,8 +108,22 @@ gulp.task('html:prod', function () {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('generate-service-worker', () => {
+  return workbox.generateSW({
+    globDirectory: dist,
+    globPatterns: ['**\/*.{html,js,img}'],
+    swDest: `${dist}/sw.js`,
+    clientsClaim: true,
+    skipWaiting: true
+  }).then(() => {
+    console.info('Service worker generation completed.');
+  }).catch((error) => {
+    console.warn('Service worker generation failed: ' + error);
+  });
+});
+
 gulp.task('prod', function () {
-  runSequence('clean:img', ['html:prod', 'sass:prod', 'img:prod', 'js:prod']);
+  runSequence('clean:img', ['html:prod', 'sass:prod', 'img:prod', 'js:prod'], 'generate-service-worker');
 });
 
 gulp.task('dev', function () {

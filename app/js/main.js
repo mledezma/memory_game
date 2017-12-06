@@ -1,5 +1,3 @@
-// ToDo: Mejorar el volteo de la carta y la manera en que resetea
-// el index de la carta en la que me encuentro
 // ToDo: Que reste 50
 const game = (function () {
   let frontCards = [{src:'1.jpg', id:1},{src:'2.jpg', id:2},{src:'3.jpg', id:3},{src:'4.jpg', id:4},{src:'5.jpg', id:5},{src:'6.jpg', id:6},{src:'7.jpg', id:7},{src:'8.jpg', id:8},{src:'9.jpg', id:9},{src:'10.jpg', id:10}];  
@@ -9,6 +7,18 @@ const game = (function () {
   let matchedCards = 0;
   let clickedCards = [];
   
+  function loadServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+          console.log('SW registered: ', registration);
+        }).catch(registrationError => {
+          console.log('SW registration failed: ', registrationError);
+        });
+      });
+    }
+  }
+
   function _deleteCard() {
     clickedCards.forEach((card) => {
       card.removeEventListener('click', _displayCard);
@@ -106,8 +116,10 @@ const game = (function () {
   }
 
   return {
-    init: init
+    init: init,
+    serviceWorker: loadServiceWorker
   };
 })();
 
+game.serviceWorker();
 game.init();
