@@ -3,16 +3,27 @@
   "short_name": "Memory",
   "theme_color": "#2d7fc1",
   "background_color": "#2d6490",
-  "display": "browser",
+  "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "index.html",
+  "orientation": "portrait",
   "icons": [{
-    "src": "img/cards/1.jpg",
-    "sizes": "64x64",
-    "type": "image/jpeg"
-  }],
+      "src": "img/icon-1x.jpg",
+      "type": "image/jpeg",
+      "sizes": "48x48"
+    },
+    {
+      "src": "img/icon-2x.jpg",
+      "type": "image/jpeg",
+      "sizes": "96x96"
+    },
+    {
+      "src": "img/icon-4x.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    }],
   "serviceworker": {
     "src": "js/sw.js",
-    "use_cache": false
+    "use_cache": true
   }
 }
