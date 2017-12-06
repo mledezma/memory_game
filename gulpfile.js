@@ -111,7 +111,7 @@ gulp.task('html:prod', () => {
 gulp.task('generate-service-worker', () => {
   return workbox.generateSW({
     globDirectory: dist,
-    globPatterns: ['**\/*.{html,js,css}'],
+    globPatterns: ['**\/*.{html,js,css,svg,jpg}'],
     swDest: `${dist}/js/sw.js`,
     clientsClaim: true,
     skipWaiting: true
@@ -137,7 +137,7 @@ gulp.task('prod', () => {
 });
 
 gulp.task('dev', () => {
-  runSequence('clean:img', ['html:dev', 'sass:dev', 'img:dev', 'js:dev',, 'watch']);
+  runSequence('clean:img', ['html:dev', 'sass:dev', 'img:dev', 'js:dev', 'watch']);
 });
 
 gulp.task('clean:tmp', () => {

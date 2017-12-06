@@ -6,18 +6,7 @@ const game = (function () {
   let isMatching = false;
   let matchedCards = 0;
   let clickedCards = [];
-  
-  function loadServiceWorker() {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then(registration => {
-          console.log('SW registered: ', registration);
-        }).catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
-        });
-      });
-    }
-  }
+  let maxScore = 0;
 
   function _deleteCard() {
     clickedCards.forEach((card) => {
@@ -38,6 +27,14 @@ const game = (function () {
 
   function _updateScore() {
     document.getElementById('currentScore').innerText = currentScore;
+    console.log('currentScore', currentScore);
+    console.log('maxScore', maxScore);
+    console.log('maxScoreLocal', getMaxScore());
+    
+    if (currentScore > maxScore) {
+      maxScore = currentScore;
+      setMaxScore();
+    }
     _displayWinMsg();
   }
 
@@ -95,7 +92,7 @@ const game = (function () {
         _matchCard();
         setTimeout(() => {
           _turnCards();
-        }, 1000);
+        }, 1500);
       }
     }
   }
@@ -109,10 +106,42 @@ const game = (function () {
   }
 
   function init() {
+    maxScore = getMaxScore();
+    document.getElementById('maxScore').innerText = maxScore;
     let cards = document.querySelectorAll('.card');
     frontCards = _duplicateCards(frontCards);
     frontCards = _randomCards(frontCards);
     _flipCard(cards);
+  }
+
+  function loadServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then(registration => {
+          console.log('SW registered: ', registration);
+        }).catch(registrationError => {
+          console.log('SW registration failed: ', registrationError);
+        });
+      });
+    }
+  }
+
+  function setMaxScore() {
+    document.getElementById('maxScore').innerText = maxScore;
+    if (typeof (Storage) !== 'undefined') {
+      localStorage.setItem('maxScore', maxScore);
+    } else {
+      alert('The local storage is not supported');
+    }
+  }
+
+  function getMaxScore() {
+    if (typeof (Storage) !== 'undefined') {
+      let maxScore = localStorage.getItem('maxScore');
+      return maxScore;
+    } else {
+      alert('The local storage is not supported');
+    }
   }
 
   return {
